@@ -1,6 +1,4 @@
-# -------------------
 import pygame
-import pygame.mixer
 from random import choice, randint
 
 # Константы для размеров поля и сетки
@@ -76,10 +74,9 @@ class Apple(GameObject):
         pygame.draw.rect(surface, self.body_color, rect)
         pygame.draw.rect(surface, BORDER_COLOR, rect, 1)
 
+
 # -------------------
 # Класс Snake
-
-
 class Snake(GameObject):
     """Инициализация начального состояния змейки."""
 
@@ -90,7 +87,6 @@ class Snake(GameObject):
         self.next_direction = None
         self.length = 2
         self.last = None
-        self.eat_sound = pygame.mixer.Sound('food_G1U6tlb.mp3')
 
     def update_direction(self):
         """Обновление направления движения змейки."""
@@ -105,6 +101,7 @@ class Snake(GameObject):
         new = (((cur[0] + (x * GRID_SIZE)) % SCREEN_WIDTH),
                (cur[1] + (y * GRID_SIZE)) % SCREEN_HEIGHT)
 
+        # Столкновение
         if new in self.positions[2:]:
             self.reset()
         else:
@@ -138,9 +135,9 @@ class Snake(GameObject):
         self.direction = choice([UP, DOWN, LEFT, RIGHT])
 
 # -------------------
+
+
 # Функция обработки нажатий клавиш
-
-
 def handle_keys(snake):
     """Обрабатывает нажатия клавиш для управления змейкой."""
     for event in pygame.event.get():
@@ -158,9 +155,9 @@ def handle_keys(snake):
                 snake.next_direction = RIGHT
 
 # -------------------
+
+
 # Основной игровой цикл
-
-
 def main():
     """Основная функция игры."""
     snake = Snake()
@@ -175,7 +172,6 @@ def main():
 
         if snake.get_head_position() == apple.position:
             snake.length += 1
-            snake.eat_sound.play()
             apple.randomize_position()
 
         snake.draw(screen)
