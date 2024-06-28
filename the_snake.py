@@ -30,7 +30,8 @@ SPEED = 20
 
 # Инициализация Pygame и Pygame.mixer
 pygame.init()
-pygame.mixer.init()
+if not pygame.mixer.get_init():
+    pygame.mixer.quit()
 
 # Глобальные переменные для экрана и часов
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
